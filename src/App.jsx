@@ -1,18 +1,25 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./index.css";
+import { TodoForm } from "./components/TodoForm";
+import { TodoList } from "./components/TodoList";
 
-// Importing components
-import TodoForm from "./components/TodoForm";
-import TodoList from "./components/TodoList";
+export default function App() {
+	const [todos, setTodos] = useState(() => {
+		const localValue = localStorage.getItem("ITEMS");
+		if (localValue == null) return [];
 
-function App() {
-	const [todos, setTodos] = useState("");
+		return JSON.parse(localValue);
+	});
+
+	useEffect(() => {
+		localStorage.setItem("ITEMS", JSON.stringify(todos));
+	}, [todos]);
 
 	function addTodo(title) {
 		setTodos((currentTodos) => {
 			return [
 				...currentTodos,
-				{ id: crypto.randomUUID(), title: newItem, completed: false },
+				{ id: crypto.randomUUID(), title, completed: false },
 			];
 		});
 	}
@@ -37,11 +44,13 @@ function App() {
 
 	return (
 		<>
-			<TodoForm addTodo={addTodo} />
-			<h1 className="header">To Do List</h1>
-			<TodoList todos={todos} />
+			<TodoForm onSubmit={addTodo} />
+			<h1 className="header">Todo List</h1>
+			<TodoList
+				todos={todos}
+				toggleTodo={toggleTodo}
+				deleteTodo={deleteTodo}
+			/>
 		</>
 	);
 }
-
-export default App;

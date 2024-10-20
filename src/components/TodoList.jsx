@@ -1,32 +1,18 @@
-import React from "react";
+import { TodoItem } from "./TodoItem";
 
-function TodoList({ todos }) {
+function TodoList({ todos, toggleTodo, deleteTodo }) {
 	return (
-		<>
-			<ul className="list">
-				{todos.length === 0 && "No todos here. Add some!"}
-				{todos.map((todo) => {
-					<li key={todo.id}>
-						<label>
-							<input
-								type="checkbox"
-								checked={todo.completed}
-								onChange={(e) =>
-									toggleTodo(todo.id, e.target.checked)
-								}
-							/>
-							{todo.title}
-						</label>
-						<button
-							className="btn btn-danger"
-							onClick={() => deleteTodo(todo.id)}
-						>
-							Delete
-						</button>
-					</li>;
-				})}
-			</ul>
-		</>
+		<ul className="list">
+			{todos.length === 0 && "No Todos"}
+			{todos.map((todo) => {
+				<TodoItem
+					{...todo}
+					key={todo.id}
+					toggleTodo={toggleTodo}
+					deleteTodo={deleteTodo}
+				/>;
+			})}
+		</ul>
 	);
 }
 
