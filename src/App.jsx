@@ -1,9 +1,16 @@
+import "./index.css";
+
 function App() {
 	return (
 		<>
-			<div className="container">
-				<h2>To Do App</h2>
-			</div>
+			<form className="new-item-form">
+				<div className="form-row">
+					<label htmlFor="item">New Item</label>
+					<input type="text" id="item" />
+				</div>
+				<button className="btn">Add Item</button>
+			</form>
+			<h1>To Do List</h1>
 		</>
 	);
 }
