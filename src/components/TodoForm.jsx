@@ -1,29 +1,18 @@
-import { useState } from "react";
+import React, { useState } from "react";
 
-export default function NewTodoForm({ onSubmit }) {
-	const [newItem, setNewItem] = useState("");
-
-	function handleSubmit(e) {
-		e.preventDefault();
-		if (newItem === "") return;
-
-		onSubmit(newItem);
-
-		setNewItem("");
-	}
-
+function TodoForm() {
 	return (
-		<form onSubmit={handleSubmit} className="new-item-form">
-			<div className="form-row">
-				<label htmlFor="item">New Item</label>
-				<input
-					value={newItem}
-					onChange={(e) => setNewItem(e.target.value)}
-					type="text"
-					id="item"
-				/>
-			</div>
-			<button className="btn">Add</button>
+		<form className="TodoForm">
+			<input
+				type="text"
+				className="todo-input"
+				placeholder="Type your task here..."
+			/>
+			<button className="todo-btn" type="submit">
+				Enter Task
+			</button>
 		</form>
 	);
 }
+
+export default TodoForm;
